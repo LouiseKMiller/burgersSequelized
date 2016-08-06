@@ -14,18 +14,52 @@ var bodyParser = require('body-parser');
 // import Node File System module method-override - lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it
 var methodOverride = require('method-override');
 //======================================
-// Bring in the Sequelize models and sync
-var Burgers = require('./models')["Burgers"]
-Burgers.sync({force:true})
+// only one dependency: our models folder. Index.js handles the rest
+var models = require('./models');
+
+// extract our sequelize connection from the models object, to avoid confusion
+var seqConnection = models.sequelize;
+
+
+// PREPARE OUR TABLES
+// =======================================================================
+
+
+// We run this query so that we can drop our tables even though they have foreign keys
+seqConnection.query('SET FOREIGN_KEY_CHECKS = 0')
+
+// reach into our models object, and create each table based on the associated model.
+// note: force:true drops the table if it already exists
 .then(function(){
-	Burgers.bulkCreate([
-	{burger_name: 'Austin\'s Favorite Burger'},
-	{burger_name: 'Porky\'s Demise'},
-	{burger_name:'Double Bacon Cheese Burger'},
-	{burger_name: 'Veggie Burger'},
-	{burger_name: 'Old Fashioned Cheese Burger'}
-	])
+	return seqConnection.sync({force:true})
+})
+
+
+.then(function(){
+	return models.Burgers.bulkCreate([
+		{burger_name: 'Austin\'s Favorite Burger', devoured: 0},
+		{burger_name: 'Porky\'s Demise', devoured: 0},
+		{burger_name:'Double Bacon Cheese Burger', devoured: 0},
+		{burger_name: 'Veggie Burger', devoured: 0},
+		{burger_name: 'Old Fashioned Cheese Burger', devoured: 0}
+		])
+})
+
+.then(function(){
+	return models.Eaters.create(
+	{
+		name: 'John',
+		Burger:{
+			burger_name: 'Veggie Burger'
+		}
+	},
+	{
+		include: [models.Burgers]
+	}
+	)
+
 });
+
 
 var app = express();
 
