@@ -1,31 +1,11 @@
 {
-  "name": "burger-sequelized",
+  "name": "burgers_sequelized",
   "version": "1.0.0",
-  "description": "UTBootCamp homework",
+  "description": "UTBootCamp homework week15",
   "engines": {
     "node": "6.3.0"
   },
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LouiseKMiller/burger.git"
-  },
-  "keywords": [
-    "node",
-    "express",
-    "handlebars",
-    "sequelize"
-  ],
-  "author": "LKMiller",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/LouiseKMiller/burger/issues"
-  },
-  "homepage": "https://github.com/LouiseKMiller/burger#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
@@ -34,5 +14,19 @@
     "mysql": "^2.11.1",
     "sequelize": "^3.23.6"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LouiseKMiller/burgersSequelized.git"
+  },
+  "author": "LKMiller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LouiseKMiller/burgersSequelized/issues"
+  },
+  "homepage": "https://github.com/LouiseKMiller/burgersSequelized#readme"
 }
